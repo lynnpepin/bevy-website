@@ -10,7 +10,7 @@
 
 {% if section_or_page %}
   {# Possible docs root section paths. A temporary workaround. TODO: issue #1181(https://github.com/bevyengine/bevy-website/issues/1181) find a better solution #}
-  {% set_global root_section_paths = ["learn/quick-start", "learn/book", "learn/migration-guides", "learn/advanced-examples", "learn/errors", "contributing"] %}
+  {% set_global root_section_paths = ["learn/quick-start", "learn/book", "learn/migration-guides", "learn/advanced-examples", "learn/errors", "learn/contribute"] %}
   {% for root_section_path in root_section_paths %}
     {% set components = root_section_path | split(pat="/") %}
     {% if section_or_page.components | slice(end=components | length) == components %}
@@ -63,12 +63,12 @@
     {% set show_nav_toggle = true %}
   {% elif section.path is starting_with("/assets/") %}
     {% set show_nav_toggle = true %}
-  {% elif section.path is starting_with("/contributing/") %}
+  {% elif section.path is starting_with("/contribute/") %}
     {% set show_nav_toggle = true %}
   {% endif %}
 {% elif page %}
   {% if page.path is starting_with("/learn/book/") or page.path is starting_with("/learn/migration-guides/") or page.path is starting_with("/learn/errors/") or page.path
-    is starting_with("/assets/") or page.path is starting_with("/contributing/") %}
+    is starting_with("/assets/") or page.path is starting_with("/contribute/") %}
     {% set show_nav_toggle = true %}
   {% endif %}
 {% endif %}
@@ -76,7 +76,7 @@
 {% set newline = "
 " %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="{% block theme %}{% endblock theme %}">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -108,22 +108,13 @@
             <img src="/assets/icon-hamburger.svg"
                   alt="Three horizontal lines stacked on top of eachother"
                   width="20"
-                  height="16"
-                  class="inverted">
+                  height="16">
           </label>
           <div class="header__left-block">
             <a class="header__logo" href="/">
               <picture class="logo">
-                <source srcset="/assets/bevy_logo_dark-inverted.svg"
-                  class="logo"
-                  media="(prefers-color-scheme: light)"
-                  alt="Bevy logo"
-                  width="520"
-                  height="130"
-                />
                 <img src="/assets/bevy_logo_dark.svg"
                   class="logo"
-                  media="(prefers-color-scheme: dark)"
                   alt="Bevy logo"
                   width="520"
                   height="130"
@@ -141,13 +132,6 @@
             <div class="main-menu__header">
               <a href="/">
                 <picture class="logo">
-                  <source srcset="/assets/bevy_logo_dark-inverted.svg"
-                        class="logo"
-                        media="(prefers-color-scheme: light)"
-                        alt="Bevy Engine"
-                        width="520"
-                        height="130"
-                        />                    
                   <img class="logo"
                         src="/assets/bevy_logo_dark.svg"
                         alt="Bevy Engine"
@@ -160,8 +144,7 @@
                 <img src="/assets/icon-times.svg"
                       alt="A saltire or x-cross"
                       width="16"
-                      height="16"
-                      class="inverted">
+                      height="16">
               </label>
             </div>
             {% block mobile_page_menu_switch %}{% endblock mobile_page_menu_switch %}
