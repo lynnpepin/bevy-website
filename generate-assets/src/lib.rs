@@ -556,7 +556,7 @@ fn search_bevy_in_manifest_dependencies(
 /// Gets the bevy version from the `Cargo.toml` bevy dependency provided.
 ///
 /// Returns the version number if available.
-/// If is is a git dependency, return either "main" or "git" for anything that isn't "main".
+/// If is a git dependency, return either "main" or "git" for anything that isn't "main".
 fn get_bevy_manifest_dependency_version(dep: &cargo_toml::Dependency) -> Option<String> {
     match dep {
         cargo_toml::Dependency::Simple(version) => Some(version.to_string()),
@@ -728,7 +728,7 @@ pub fn get_metadata_from_cratesio_statement(
         FROM ( \
             SELECT version_id, license, major, \
                 CAST(SUBSTR(minor_and_patch,0,second_point) AS INTEGER) minor, \
-                SUBSTR(minor_and_patch,second_point+1) patch \
+                CAST(SUBSTR(minor_and_patch,second_point+1) AS INTEGER) patch \
             FROM ( \
                 SELECT version_id, license, major, minor_and_patch, \
                     INSTR(minor_and_patch, '.') second_point \
